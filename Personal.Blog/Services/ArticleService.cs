@@ -3,7 +3,7 @@ using Personal.Blog.Models;
 
 namespace Personal.Blog.Services
 {
-    public class ArticleService
+    public class ArticleService : IArticleService
     {
         private readonly ApplicationDbContext _context;
 

@@ -12,14 +12,15 @@ namespace Personal.Blog.Controllers
 {
     public class ArticlesController : Controller
     {
-        private readonly ArticleService _articleService;
+        private readonly IArticleService _articleService;
         private readonly ApplicationDbContext _context;
 
-        public ArticlesController(ArticleService articleService, ApplicationDbContext context)
+        public ArticlesController(IArticleService articleService, ApplicationDbContext context)
         {
             _articleService = articleService;
             _context = context;
         }
+
 
         // GET: Articles
         public async Task<IActionResult> Index()

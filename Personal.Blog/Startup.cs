@@ -28,7 +28,9 @@ namespace Personal.Blog
 
             services.AddControllersWithViews();
 
-            services.AddScoped<ArticleService>();
+            services.AddScoped<ArticleService>(provider => new ArticleService(provider.GetService<ApplicationDbContext>()));
+
+            services.AddScoped<IArticleService, ArticleService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
