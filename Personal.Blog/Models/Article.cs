@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Personal.Blog.Models
+﻿namespace Personal.Blog.Models
 {
     public class Article
     {

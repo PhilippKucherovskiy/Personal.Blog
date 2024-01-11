@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace Personal.Blog.Models
+﻿namespace Personal.Blog.Models
 {
     public class UserRole
     {
