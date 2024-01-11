@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace Personal.Blog.Controllers
 {
-    public class ArticlesController : Controller
+    public class UsersController : Controller
     {
-        private readonly IArticleService _articleService;
+        private readonly IUserService _userService;
 
-        public ArticlesController(IArticleService articleService)
+        public UsersController(IUserService userService)
         {
-            _articleService = articleService;
+            _userService = userService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var articles = await _articleService.GetAllArticlesAsync();
-            return View(articles);
+            return View(await _userService.GetAllUsersAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -28,13 +27,13 @@ namespace Personal.Blog.Controllers
                 return NotFound();
             }
 
-            var article = await _articleService.GetArticleByIdAsync(id.Value);
-            if (article == null)
+            var user = await _userService.GetUserByIdAsync(id.Value);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(article);
+            return View(user);
         }
 
         public IActionResult Create()
@@ -44,14 +43,14 @@ namespace Personal.Blog.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArticleId,Title,Content,CreatedAt,UserId")] Article article)
+        public async Task<IActionResult> Create([Bind("UserId,Username,Email,PasswordHash")] User user)
         {
             if (ModelState.IsValid)
             {
-                await _articleService.CreateArticleAsync(article);
+                await _userService.CreateUserAsync(user);
                 return RedirectToAction(nameof(Index));
             }
-            return View(article);
+            return View(user);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -61,19 +60,19 @@ namespace Personal.Blog.Controllers
                 return NotFound();
             }
 
-            var article = await _articleService.GetArticleByIdAsync(id.Value);
-            if (article == null)
+            var user = await _userService.GetUserByIdAsync(id.Value);
+            if (user == null)
             {
                 return NotFound();
             }
-            return View(article);
+            return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticleId,Title,Content,CreatedAt,UserId")] Article article)
+        public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Email,PasswordHash")] User user)
         {
-            if (id != article.ArticleId)
+            if (id != user.UserId)
             {
                 return NotFound();
             }
@@ -82,11 +81,11 @@ namespace Personal.Blog.Controllers
             {
                 try
                 {
-                    await _articleService.UpdateArticleAsync(article);
+                    await _userService.UpdateUserAsync(user);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await ArticleExists(article.ArticleId))
+                    if (!await _userService.UserExistsAsync(user.UserId))
                     {
                         return NotFound();
                     }
@@ -97,7 +96,7 @@ namespace Personal.Blog.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(article);
+            return View(user);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -107,32 +106,21 @@ namespace Personal.Blog.Controllers
                 return NotFound();
             }
 
-            var article = await _articleService.GetArticleByIdAsync(id.Value);
-            if (article == null)
+            var user = await _userService.GetUserByIdAsync(id.Value);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            return View(article);
+            return View(user);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _articleService.DeleteArticleAsync(id);
+            await _userService.DeleteUserAsync(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private async Task<bool> ArticleExists(int id)
-        {
-            return await _articleService.GetArticleByIdAsync(id) != null;
-        }
-
-        public async Task<IActionResult> ArticlesByUser(int userId)
-        {
-            var articles = await _articleService.GetArticlesByUserIdAsync(userId);
-            return View("Index", articles);
         }
     }
 }

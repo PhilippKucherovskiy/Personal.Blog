@@ -9,6 +9,7 @@ namespace Personal.Blog.Services
         Task<Article> GetArticleByIdAsync(int id);
         Task UpdateArticleAsync(Article article);
         Task DeleteArticleAsync(int id);
+        Task<List<Article>> GetArticlesByUserIdAsync(int userId);
     }
 
 }

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Personal.Blog.Models.ArticleTag>
+
+@{
+    ViewData["Title"] = "Article Tags Index";
+}
+
+<h1>Article Tags</h1>
+
+<p>
+    <a asp-action="CreateArticleTag">Create New Article Tag</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Article Title</th>
+            <th>Tag Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Article.Title)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tag.Name)</td>
+                <td>
+                    <a asp-action="DeleteArticleTag" asp-route-articleId="@item.ArticleId" asp-route-tagId="@item.TagId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

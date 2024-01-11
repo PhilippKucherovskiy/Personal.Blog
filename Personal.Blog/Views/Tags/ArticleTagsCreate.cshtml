@@ -1,0 +1,25 @@
+﻿@model Personal.Blog.Models.ArticleTag
+
+@{
+    ViewData["Title"] = "Create Article Tag";
+}
+
+<h1>Create Article Tag</h1>
+
+<form asp-action="CreateArticleTag">
+    <div class="form-group">
+        <label asp-for="ArticleId" class="control-label">Article</label>
+        <select asp-for="ArticleId" asp-items="ViewBag.ArticleId" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="TagId" class="control-label">Tag</label>
+        <select asp-for="TagId" asp-items="ViewBag.TagId" class="form-control"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="ArticleTagsIndex">Back to List</a>
+</div>

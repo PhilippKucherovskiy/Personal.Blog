@@ -1,5 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Personal.Blog.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Personal.Blog.Services
 {
@@ -12,7 +16,6 @@ namespace Personal.Blog.Services
             _context = context;
         }
 
-        // Метод для создания новой статьи
         public async Task CreateArticleAsync(Article article)
         {
             if (article == null)
@@ -24,19 +27,16 @@ namespace Personal.Blog.Services
             await _context.SaveChangesAsync();
         }
 
-        // Метод для получения всех статей
         public async Task<List<Article>> GetAllArticlesAsync()
         {
             return await _context.Articles.ToListAsync();
         }
 
-        // Метод для получения статьи по ID
         public async Task<Article> GetArticleByIdAsync(int id)
         {
             return await _context.Articles.FindAsync(id);
         }
 
-        // Метод для обновления статьи
         public async Task UpdateArticleAsync(Article article)
         {
             if (article == null)
@@ -48,7 +48,6 @@ namespace Personal.Blog.Services
             await _context.SaveChangesAsync();
         }
 
-        // Метод для удаления статьи
         public async Task DeleteArticleAsync(int id)
         {
             var article = await _context.Articles.FindAsync(id);
@@ -57,6 +56,13 @@ namespace Personal.Blog.Services
                 _context.Articles.Remove(article);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<List<Article>> GetArticlesByUserIdAsync(int userId)
+        {
+            return await _context.Articles
+                .Where(a => a.UserId == userId)
+                .ToListAsync();
         }
     }
 }
