@@ -72,7 +72,7 @@ namespace Personal.Blog.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserId,Username,Email,PasswordHash")] User user)
         {
-            if (id != user.UserId)
+            if (id != user.Id)
             {
                 return NotFound();
             }
@@ -85,7 +85,7 @@ namespace Personal.Blog.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await _userService.UserExistsAsync(user.UserId))
+                    if (!await _userService.UserExistsAsync(user.Id))
                     {
                         return NotFound();
                     }

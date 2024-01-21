@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Personal.Blog.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 
 namespace Personal.Blog
 {
 
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -17,8 +18,6 @@ namespace Personal.Blog
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<ArticleTag> ArticleTags { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -53,7 +53,7 @@ namespace Personal.Blog.Services
 
             public async Task<bool> UserExistsAsync(int id)
             {
-                return await _context.Users.AnyAsync(e => e.UserId == id);
+                return await _context.Users.AnyAsync(e => e.Id == id);
             }
         }
     }

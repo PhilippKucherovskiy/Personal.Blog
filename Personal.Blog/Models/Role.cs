@@ -1,12 +1,14 @@
-﻿namespace Personal.Blog.Models
-{
-    public class Role
-    {
-        public int RoleId { get; set; }
-        public string Name { get; set; }
+﻿using Microsoft.AspNetCore.Identity;
 
-        // Связь
-        public ICollection<UserRole> UserRoles { get; set; }
+
+
+namespace Personal.Blog.Models
+{
+    public class Role : IdentityRole<int>
+    {
+       
+
+    
     }
 
 }
