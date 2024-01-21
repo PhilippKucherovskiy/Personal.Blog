@@ -24,6 +24,7 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
