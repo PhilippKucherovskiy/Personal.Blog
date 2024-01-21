@@ -2,16 +2,22 @@
 using Personal.Blog.ViewModels;
 using Personal.Blog.Services;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using Personal.Blog.Models;
 
 namespace Personal.Blog.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly UserManager<User> _userManager;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService, UserManager<User> userManager)
         {
             _accountService = accountService;
+            _userManager = userManager; 
         }
 
         [HttpGet]
@@ -52,6 +58,19 @@ namespace Personal.Blog.Controllers
                 var result = await _accountService.LoginUserAsync(model, returnUrl);
                 if (result.Succeeded)
                 {
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    var roles = await _userManager.GetRolesAsync(user);
+
+                    var claims = new List<Claim>();
+                    foreach (var role in roles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, role));
+                    }
+
+                    var userIdentity = new ClaimsIdentity(claims, "login");
+                    ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
+                    await HttpContext.SignInAsync(principal);
+
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -65,6 +84,7 @@ namespace Personal.Blog.Controllers
             }
             return View(model);
         }
+
 
         public async Task<IActionResult> Logout()
         {
@@ -86,7 +106,7 @@ namespace Personal.Blog.Controllers
                 var token = await _accountService.GenerateForgotPasswordTokenAsync(model);
                 if (token != null)
                 {
-                    // Здесь должен быть код для отправки электронного письма
+                    // Send email logic
                 }
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
