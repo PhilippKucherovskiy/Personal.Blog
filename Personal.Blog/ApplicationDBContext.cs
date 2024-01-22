@@ -13,7 +13,7 @@ namespace Personal.Blog
         {
         }
 
-        public DbSet<User> Users { get; set; }
+       
         public DbSet<Article> Articles { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -25,9 +25,6 @@ namespace Personal.Blog
 
             modelBuilder.Entity<ArticleTag>()
                 .HasKey(at => new { at.ArticleId, at.TagId });
-
-            modelBuilder.Entity<UserRole>()
-                .HasKey(ur => new { ur.UserId, ur.RoleId });
 
             modelBuilder.Entity<ArticleTag>()
                 .HasOne(at => at.Article)

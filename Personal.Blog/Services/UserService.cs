@@ -1,6 +1,5 @@
 ﻿using global::Personal.Blog.Models;
 using Microsoft.EntityFrameworkCore;
-using Personal.Blog.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
