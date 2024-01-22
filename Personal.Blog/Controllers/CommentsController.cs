@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Personal.Blog.Models;
 using Personal.Blog.Services;
 using System.Threading.Tasks;
@@ -50,6 +51,7 @@ public class CommentsController : Controller
         return View(comment);
     }
 
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> Edit(int? id)
     {
         if (id == null)
@@ -82,6 +84,7 @@ public class CommentsController : Controller
         return View(comment);
     }
 
+    [Authorize(Roles = "Admin,Moderator")]
     public async Task<IActionResult> Delete(int? id)
     {
         if (id == null)

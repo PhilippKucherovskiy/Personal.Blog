@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Personal.Blog.Models;
 using Personal.Blog.Services;
@@ -17,7 +18,8 @@ namespace Personal.Blog.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _userService.GetAllUsersAsync());
+            var usersWithRoles = await _userService.GetAllUsersAsync();
+            return View(usersWithRoles);
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -99,6 +101,7 @@ namespace Personal.Blog.Controllers
             return View(user);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
