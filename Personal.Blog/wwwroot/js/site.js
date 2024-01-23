@@ -1,4 +1,7 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+document.querySelector('.footer .text-muted').textContent = `© ${new Date().getFullYear()} - Personal.Blog`;
+$(document).ready(function () {
+    $('.dropdown-toggle').dropdown();
+});
 
-// Write your JavaScript code.
+
