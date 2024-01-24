@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Personal.Blog.Models;
 using Personal.Blog.Services;
 using System.Threading.Tasks;
+using NLog;
+using ILogger = NLog.ILogger;
 
 public class CommentsController : Controller
 {
+    private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
     private readonly ICommentService _commentService;
 
     public CommentsController(ICommentService commentService)
@@ -15,19 +18,24 @@ public class CommentsController : Controller
 
     public async Task<IActionResult> Index()
     {
-        return View(await _commentService.GetAllCommentsAsync());
+        _logger.Info("Fetching all comments");
+        var comments = await _commentService.GetAllCommentsAsync();
+        return View(comments);
     }
 
     public async Task<IActionResult> Details(int? id)
     {
         if (id == null)
         {
+            _logger.Warn("Comment Details: Id is null");
             return NotFound();
         }
 
+        _logger.Info($"Fetching details for comment with Id: {id}");
         var comment = await _commentService.GetCommentByIdAsync(id.Value);
         if (comment == null)
         {
+            _logger.Warn($"Comment with Id: {id} not found");
             return NotFound();
         }
 
@@ -45,9 +53,13 @@ public class CommentsController : Controller
     {
         if (ModelState.IsValid)
         {
+            _logger.Info("Attempting to create a new comment");
             await _commentService.CreateCommentAsync(comment);
+            _logger.Info("Comment created successfully");
             return RedirectToAction(nameof(Index));
         }
+
+        _logger.Warn("Invalid model state for creating comment");
         return View(comment);
     }
 
@@ -56,12 +68,14 @@ public class CommentsController : Controller
     {
         if (id == null)
         {
+            _logger.Warn("Edit Comment: Id is null");
             return NotFound();
         }
 
         var comment = await _commentService.GetCommentByIdAsync(id.Value);
         if (comment == null)
         {
+            _logger.Warn($"Edit Comment: Comment with Id: {id} not found");
             return NotFound();
         }
         return View(comment);
@@ -73,14 +87,19 @@ public class CommentsController : Controller
     {
         if (id != comment.CommentId)
         {
+            _logger.Warn($"Edit Comment: Comment Id mismatch, expected: {comment.CommentId}, got: {id}");
             return NotFound();
         }
 
         if (ModelState.IsValid)
         {
+            _logger.Info($"Attempting to update comment with Id: {id}");
             await _commentService.UpdateCommentAsync(comment);
+            _logger.Info($"Comment with Id: {id} updated successfully");
             return RedirectToAction(nameof(Index));
         }
+
+        _logger.Warn("Invalid model state for editing comment");
         return View(comment);
     }
 
@@ -89,12 +108,14 @@ public class CommentsController : Controller
     {
         if (id == null)
         {
+            _logger.Warn("Delete Comment: Id is null");
             return NotFound();
         }
 
         var comment = await _commentService.GetCommentByIdAsync(id.Value);
         if (comment == null)
         {
+            _logger.Warn($"Delete Comment: Comment with Id: {id} not found");
             return NotFound();
         }
 
@@ -105,7 +126,9 @@ public class CommentsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
+        _logger.Info($"Attempting to delete comment with Id: {id}");
         await _commentService.DeleteCommentAsync(id);
+        _logger.Info($"Comment with Id: {id} deleted successfully");
         return RedirectToAction(nameof(Index));
     }
 }
