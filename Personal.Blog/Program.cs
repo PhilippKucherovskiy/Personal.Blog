@@ -29,26 +29,20 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-
 if (app.Environment.IsDevelopment())
 {
-    using var scope = app.Services.CreateScope();
-    var services = scope.ServiceProvider;
-    var userManager = services.GetRequiredService<UserManager<User>>();
-    var roleManager = services.GetRequiredService<RoleManager<Role>>();
-    await DbInitializer.InitializeRoles(roleManager);
-    await DbInitializer.InitializeUsers(userManager);
+    app.UseDeveloperExceptionPage();
 }
-
-
-if (!app.Environment.IsDevelopment())
+else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseStatusCodePagesWithRedirects("/Home/{0}");
 
 app.UseRouting();
 
