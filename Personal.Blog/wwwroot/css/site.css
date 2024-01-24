@@ -1,113 +1,79 @@
-﻿/* Обнуляем стандартные отступы и поля */
+﻿
 body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
 }
 
-/* Устанавливаем фон и шрифт для всего документа */
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+    background-color: #e9ecef; 
+    color: #333;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100vh;
 }
 
-/* Хедер */
+
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: #e7d5b7; 
+    background-image: radial-gradient(circle, #a67848 20%, transparent 20%), radial-gradient(circle, #a67848 20%, transparent 20%);
+    background-size: 30px 30px; 
+    background-position: 0 0, 15px 15px; 
     padding: 10px 0;
+    font-size: 18px; 
 }
 
 nav ul {
     list-style: none;
+    padding-left: 0;
     text-align: center;
 }
 
     nav ul li {
-        display: inline-block;
-        margin-right: 20px;
+        display: inline;
+        margin-right: 15px;
     }
 
-        nav ul li:last-child {
-            margin-right: 0;
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
-nav a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-}
+            nav ul li a:hover {
+                background-color: #365d98; 
+            }
 
-/* Главный контент */
+
 main {
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); 
+    border-radius: 5px; 
+    margin-top: 20px;
 }
 
-.hero {
-    background-color: #007BFF;
-    color: #fff;
-    text-align: center;
-    padding: 40px;
-}
 
-    .hero h1 {
-        font-size: 36px;
-        margin-bottom: 20px;
-    }
-
-    .hero p {
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
-
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-    .btn:hover {
-        background-color: #555;
-    }
-
-/* Секция с преимуществами */
-.features {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-}
-
-.feature {
-    flex: 1;
-    padding: 20px;
-    background-color: #fff;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-    .feature h2 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-
-    .feature p {
-        font-size: 16px;
-    }
-
-/* Футер */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: #2c3e50; 
+    color: white;
     text-align: center;
     padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); 
 }
 
-    /* Ссылки в футере */
     footer a {
-        color: #fff;
+        color: white;
         text-decoration: none;
     }
+
+        footer a:hover {
+            text-decoration: underline;
+        }

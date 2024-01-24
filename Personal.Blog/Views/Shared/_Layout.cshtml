@@ -29,6 +29,8 @@
                             <a class="dropdown-item" asp-controller="Account" asp-action="Register">Register</a>
                             <a class="dropdown-item" asp-controller="Account" asp-action="Login">Login</a>
                             <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="ForgotPassword">Forgot Password</a>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="ResetPassword">Reset Password</a>
                         </div>
                     </li>
 
@@ -40,7 +42,10 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownArticles">
                             <a class="dropdown-item" asp-controller="Articles" asp-action="Index">View Articles</a>
                             <a class="dropdown-item" asp-controller="Articles" asp-action="Create">Create Article</a>
-                            <!-- Add other actions for Articles if needed -->
+                            <a class="dropdown-item" asp-controller="Articles" asp-action="Edit">Edit Article</a>
+                            <a class="dropdown-item" asp-controller="Articles" asp-action="Details">Article Details</a>
+                            <a class="dropdown-item" asp-controller="Articles" asp-action="Delete">Delete Article</a>
+                            <a class="dropdown-item" asp-controller="Articles" asp-action="ArticlesByUser">Articles By User</a>
                         </div>
                     </li>
 
@@ -52,7 +57,9 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownComments">
                             <a class="dropdown-item" asp-controller="Comments" asp-action="Index">View Comments</a>
                             <a class="dropdown-item" asp-controller="Comments" asp-action="Create">Create Comment</a>
-                            <!-- Add other actions for Comments if needed -->
+                            <a class="dropdown-item" asp-controller="Comments" asp-action="Edit">Edit Comment</a>
+                            <a class="dropdown-item" asp-controller="Comments" asp-action="Delete">Delete Comment</a>
+                            <a class="dropdown-item" asp-controller="Comments" asp-action="Details">Comment Details</a>
                         </div>
                     </li>
 
@@ -63,11 +70,51 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownUsers">
                             <a class="dropdown-item" asp-controller="Users" asp-action="Index">View Users</a>
-                            <!-- Add other actions for Users if needed -->
+                            <a class="dropdown-item" asp-controller="Users" asp-action="Create">Create User</a>
+                            <a class="dropdown-item" asp-controller="Users" asp-action="Edit">Edit User</a>
+                            <a class="dropdown-item" asp-controller="Users" asp-action="Delete">Delete User</a>
+                            <a class="dropdown-item" asp-controller="Users" asp-action="Details">User Details</a>
                         </div>
                     </li>
 
-                    <!-- Add additional dropdowns for other controllers like Tags, Roles, etc. -->
+                    <!-- Roles Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownRoles" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Roles
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownRoles">
+                            <a class="dropdown-item" asp-controller="Roles" asp-action="Index">View Roles</a>
+                            <a class="dropdown-item" asp-controller="Roles" asp-action="Create">Create Role</a>
+                            <a class="dropdown-item" asp-controller="Roles" asp-action="Edit">Edit Role</a>
+                            <a class="dropdown-item" asp-controller="Roles" asp-action="Delete">Delete Role</a>
+                            <a class="dropdown-item" asp-controller="Roles" asp-action="Details">Role Details</a>
+                        </div>
+                    </li>
+
+                    <!-- Tags Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTags" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Tags
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownTags">
+                            <a class="dropdown-item" asp-controller="Tags" asp-action="Index">View Tags</a>
+                            <a class="dropdown-item" asp-controller="Tags" asp-action="Create">Create Tag</a>
+                            <a class="dropdown-item" asp-controller="Tags" asp-action="Edit">Edit Tag</a>
+                            <a class="dropdown-item" asp-controller="Tags" asp-action="Delete">Delete Tag</a>
+                            <a class="dropdown-item" asp-controller="Tags" asp-action="Details">Tag Details</a>
+                            <a class="dropdown-item" asp-controller="Tags" asp-action="ArticleTagsIndex">Article Tags Index</a>
+                            <a class="dropdown-item" asp-controller="Tags" asp-action="CreateArticleTag">Create Article Tag</a>
+                        </div>
+                    </li>
+
+                    
+
+                    <!-- Move logout button to the right -->
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link btn btn-danger btn-lg" asp-controller="Account" asp-action="Logout" role="button">
+                            Выйти
+                        </a>
+                    </li>
 
                 </ul>
             </div>
