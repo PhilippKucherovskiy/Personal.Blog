@@ -6,7 +6,7 @@ using ILogger = NLog.ILogger;
 
 namespace Personal.Blog.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller 
     {
         private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
