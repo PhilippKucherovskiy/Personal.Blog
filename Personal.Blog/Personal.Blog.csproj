@@ -43,8 +43,4 @@
     <None Include="nlog.config" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\API\API.csproj" />
-  </ItemGroup>
-
 </Project>

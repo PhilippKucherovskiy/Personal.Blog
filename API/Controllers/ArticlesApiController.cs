@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Personal.Blog.Models;
 using Personal.Blog.Services;
  
 using System;
@@ -11,14 +12,14 @@ namespace Personal.Blog.API.Controllers
     [Route("api/[controller]")]
     public class ArticlesApiController : ControllerBase
     {
-        private readonly IArticleService _articleService; // Сервис для работы со статьями
+        private readonly IArticleService _articleService; 
 
         public ArticlesApiController(IArticleService articleService)
         {
             _articleService = articleService;
         }
 
-        // Получение всех статей
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetAllArticles()
         {
@@ -26,7 +27,7 @@ namespace Personal.Blog.API.Controllers
             return Ok(articles);
         }
 
-        // Получение статьи по ID
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Article>> GetArticleById(int id)
         {
@@ -38,7 +39,7 @@ namespace Personal.Blog.API.Controllers
             return Ok(article);
         }
 
-        // Создание новой статьи
+      
         [HttpPost]
         public async Task<ActionResult<Article>> CreateArticle([FromBody] Article article)
         {
@@ -50,7 +51,7 @@ namespace Personal.Blog.API.Controllers
             return CreatedAtAction("GetArticleById", new { id = article.ArticleId }, article);
         }
 
-        // Обновление статьи
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateArticle(int id, [FromBody] Article article)
         {
@@ -58,24 +59,19 @@ namespace Personal.Blog.API.Controllers
             {
                 return BadRequest();
             }
-            var result = await _articleService.UpdateArticleAsync(article);
-            if (!result)
-            {
-                return NotFound();
-            }
+
+            await _articleService.UpdateArticleAsync(article);
             return NoContent();
         }
 
-        // Удаление статьи
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
-            var result = await _articleService.DeleteArticleAsync(id);
-            if (!result)
-            {
-                return NotFound();
-            }
+            await _articleService.DeleteArticleAsync(id);
             return NoContent();
         }
+
     }
 }
