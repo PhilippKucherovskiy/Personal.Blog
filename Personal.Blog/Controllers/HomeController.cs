@@ -10,14 +10,14 @@ namespace Personal.Blog.Controllers
     {
         private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
-        // GET: /Home/Index
+        [HttpGet]
         public IActionResult Index()
         {
             _logger.Info("Accessed Home Index");
             return View();
         }
 
-        // GET: /Home/About
+        [HttpGet]
         public IActionResult About()
         {
             _logger.Info("Accessed About Page");
@@ -25,7 +25,7 @@ namespace Personal.Blog.Controllers
             return View();
         }
 
-        // GET: /Home/Contact
+        [HttpGet]
         public IActionResult Contact()
         {
             _logger.Info("Accessed Contact Page");
@@ -33,7 +33,7 @@ namespace Personal.Blog.Controllers
             return View();
         }
 
-        // GET: /Home/Error
+        [HttpGet]
         [Route("Error")]
         public IActionResult Error()
         {
@@ -41,7 +41,7 @@ namespace Personal.Blog.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // Обработка ошибки 404 - Не найдено
+        [HttpGet]
         [Route("Home/404")]
         public IActionResult Error404()
         {
@@ -49,7 +49,7 @@ namespace Personal.Blog.Controllers
             return View("NotFound");
         }
 
-        // Обработка ошибки 403 - Доступ запрещен
+        [HttpGet]
         [Route("Home/403")]
         public IActionResult Error403()
         {
